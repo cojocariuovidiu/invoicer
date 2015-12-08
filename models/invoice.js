@@ -26,3 +26,25 @@ var invoiceSchema = mongoose.Schema({
 });
 
 var Invoice = module.exports = mongoose.model('Invoice', invoiceSchema);
+
+// Get Invoices
+module.exports.getInvoices= function(callback, limit){
+	Invoice.find(callback).limit(limit).sort([['createdAt', 'descending']]);
+}
+
+// Get Invoice
+module.exports.getInvoiceById = function(id, callback){
+	Invoice.findById(id, callback);
+}
+
+// Add Invoice
+module.exports.addInvoice = function(invoice, callback){
+	var add = {
+		customer: invoice.customer_id,
+		service: invoice.service,
+		price: invoice.price,
+		due: invoice.due,
+		status: invoice.status
+	}
+	Invoice.create(add, callback);
+}
