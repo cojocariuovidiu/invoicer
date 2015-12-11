@@ -13,3 +13,26 @@ router.get('/', function(req, res){
 		res.json(customers);
 	});
 });
+
+// Add Customer
+router.post('/', function(req, res){
+	var customer = req.body;
+	Customer.addCustomer(customer, function(err, customer){
+		if(err){
+			res.send(err);
+		}
+		res.json(customer);
+	});
+});
+
+// Update Customer
+router.put('/:id', function(req, res){
+	var id = req.params.id;
+	var customer = req.body;
+	Customer.updateCustomer(id, customer, {}, function(err, customer){
+		if(err){
+			res.send(err);
+		}
+		res.json(customer);
+	});
+});
