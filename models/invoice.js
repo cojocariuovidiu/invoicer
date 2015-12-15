@@ -48,3 +48,15 @@ module.exports.addInvoice = function(invoice, callback){
 	}
 	Invoice.create(add, callback);
 }
+
+// Update Invoice
+module.exports.updateInvoice = function(id, invoice, options, callback){
+	var query = {_id: id};
+	var update = {
+		service: invoice.service,
+		price: invoice.price,
+		due: invoice.due,
+		status: invoice.status
+	}
+	Invoice.findOneAndUpdate(query, update, options, callback);
+}
