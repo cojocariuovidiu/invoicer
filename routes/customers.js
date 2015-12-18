@@ -14,6 +14,16 @@ router.get('/', function(req, res){
 	});
 });
 
+// Get Single Customer
+router.get('/:id', function(req, res){
+	Customer.getCustomerById(req.params.id, function(err, customer){
+		if(err){
+			res.send(err);
+		}
+		res.json(customer);
+	});
+});
+
 // Add Customer
 router.post('/', function(req, res){
 	var customer = req.body;
@@ -36,3 +46,5 @@ router.put('/:id', function(req, res){
 		res.json(customer);
 	});
 });
+
+module.exports = router;
