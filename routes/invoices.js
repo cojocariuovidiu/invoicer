@@ -47,4 +47,15 @@ router.put('/:id', function(req, res){
 	});
 });
 
+// Delete Invoice
+router.delete('/:id', function(req, res){
+	var id = req.params.id;
+	Invoice.removeInvoice(id, function(err, invoice){
+		if(err){
+			res.send(err);
+		}
+		res.json(invoice);
+	});
+});
+
 module.exports = router;
