@@ -60,3 +60,15 @@ module.exports.updateInvoice = function(id, invoice, options, callback){
 	}
 	Invoice.findOneAndUpdate(query, update, options, callback);
 }
+
+// Remove Invoice
+module.exports.removeInvoice = function(id, callback){
+	var query = {_id: id};
+	Invoice.remove(query, callback);
+}
+
+// Get Customer Invoices
+module.exports.getCustomerInvoices = function(customer_id, callback, limit){
+	var query = {customer: customer_id};
+	Invoice.find(query, callback).limit(limit).populate('customer').sort([['createdAt', 'ascending']]);
+}
