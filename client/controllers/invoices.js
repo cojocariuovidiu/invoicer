@@ -9,6 +9,16 @@ myApp.controller('InvoicesController', ['$scope', '$http', '$location', '$routeP
 		});
 	}
   
+  $scope.getInvoice = function(){
+		var id = $routeParams.id;
+		$http.get('/api/invoices/'+id).success(function(response){
+			$scope.invoice= response;
+			//Fill Select
+			$scope.invoice.customer_id = response.customer._id;
+			$scope.invoice.status = response.invoice.status;
+		});
+	}
+  
   $scope.getCustomers = function(){
 		$http.get('/api/customers').success(function(response){
 			$scope.customers = response;
@@ -27,4 +37,9 @@ myApp.controller('InvoicesController', ['$scope', '$http', '$location', '$routeP
 		});
 	}
   
-}])
+  $scope.deleteInvoice = function(id){
+		$http.delete('/api/invoices/'+id).success(function(response){
+			window.location.href='/#invoices';
+		});
+	}
+}]);
